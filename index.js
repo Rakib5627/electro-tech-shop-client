@@ -31,6 +31,10 @@ async function run() {
     const database = client.db("ProductsDb");
     const productCollection = database.collection("products");
     const userCollection = database.collection("user");
+    const cartCollection = database.collection("cart");
+
+
+    // ------products api-------
 
     app.get('/products', async(req , res) => {
         const cursor = productCollection.find();
@@ -93,6 +97,16 @@ app.post('/users', async(req , res) =>{
   const id =req.params.id;
   const user = req.body;
   const result = await userCollection.insertOne(user);
+  res.send(result);
+})
+
+
+// ----------------------cart api-------------
+
+app.post('/cart', async(req , res) =>{
+  const id =req.params.id;
+  const cartProduct = req.body;
+  const result = await cartCollection.insertOne(cartProduct);
   res.send(result);
 })
 
